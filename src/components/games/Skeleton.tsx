@@ -3,12 +3,7 @@ import React from "react";
 
 const Skeleton = () => {
   return (
-    <Card.Root
-      width={{ sm: "250px", lg: "350px" }}
-      height={{base: '300px', lg: '350px'}}
-      borderRadius={10}
-      overflow={"hidden"}
-    >
+    <Card.Root height={{ base: "305px", lg: "350px" }}>
       <SkeletonCircle />
       <Card.Body>
         <SkeletonText />
