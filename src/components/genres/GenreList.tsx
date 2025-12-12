@@ -13,6 +13,7 @@ import {
 import croppedImageUrl from "../../services/image-url";
 interface Props {
   onSelectGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 export interface Genre {
   id: number;
@@ -29,7 +30,7 @@ const fetchGenres = () => {
     .get<FetchGenreResponse>("/genres")
     .then((res) => res.data.results);
 };
-const GenreList = ({ onSelectGenre }: Props) => {
+const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   const {
     data: genres,
     error,
@@ -52,6 +53,7 @@ const GenreList = ({ onSelectGenre }: Props) => {
               src={croppedImageUrl(genre.image_background)}
             />
             <Link
+              color={selectedGenre?.id === genre.id ? "yellow" : ""}
               onClick={() => onSelectGenre(genre)}
               textDecoration={"none"}
               fontWeight={"bold"}
