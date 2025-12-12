@@ -14,7 +14,7 @@ const Navbar = () => {
           <Text fontWeight={"bold"} color={colorMode === 'dark'? 'yellow': 'black'}>
             {colorMode === "dark" ? "Light Mode" : "Dark Mode"}
           </Text>
-          <ColorModeButton color={colorMode === 'dark'? 'yellow': 'black'} />
+          <ColorModeButton  color={colorMode === 'dark'? 'yellow': 'black'} />
         </HStack>
       </HStack>
     </div>

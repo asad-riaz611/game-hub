@@ -37,7 +37,7 @@ const GameGrid = () => {
 
   if (error) return <p className="danger">{error.message}</p>;
   return (
-    <SimpleGrid padding={10} columns={{ sm: 1, md: 2, lg: 3 }} gap={10}>
+    <SimpleGrid padding={10} columns={{ sm: 1, md: 2, lg: 3 }} gap={6}>
       {isLoading &&
         skeletons.map((s) => (
           <GameCardContainer>
