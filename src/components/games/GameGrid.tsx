@@ -8,6 +8,7 @@ import GameCardContainer from "./GameCardContainer";
 import { Genre } from "../genres/GenreList";
 interface Props {
   selectedGenre: Genre | null;
+  selectedPlatform: Platform | null;
 }
 export interface Platform {
   id: number;
@@ -26,21 +27,25 @@ interface FetchGamesResponse {
   count: number;
   results: Game[];
 }
-const fetchGames = (genreId: number | null) =>
+const fetchGames = (genreId: number | null, platformId: number | null) =>
   apiClient
     .get<FetchGamesResponse>("/games", {
-      params: { genres: genreId || undefined },
+      params: {
+        genres: genreId || undefined,
+        parent_platforms: platformId || undefined,
+      },
     })
     .then((res) => res.data.results);
-const GameGrid = ({ selectedGenre }: Props) => {
+const GameGrid = ({ selectedGenre, selectedPlatform }: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6];
   const {
     data: games,
     error,
     isLoading,
   } = useQuery<Game[], Error>({
-    queryKey: ["games", selectedGenre?.id],
-    queryFn: () => fetchGames(selectedGenre?.id || null),
+    queryKey: ["games", selectedGenre?.id, selectedPlatform?.id],
+    queryFn: () =>
+      fetchGames(selectedGenre?.id || null, selectedPlatform?.id || null),
   });
 
   if (error) return <p className="danger">{error.message}</p>;
