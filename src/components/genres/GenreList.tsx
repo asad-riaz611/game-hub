@@ -1,9 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import apiClient from "../../services/api-client";
-import { HStack, Image, List, Spinner, Text } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  Image,
+  Link,
+  List,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import croppedImageUrl from "../../services/image-url";
-interface Genre {
+interface Props {
+  onSelectGenre: (genre: Genre) => void;
+}
+export interface Genre {
   id: number;
   name: string;
   slug: string;
@@ -18,7 +29,7 @@ const fetchGenres = () => {
     .get<FetchGenreResponse>("/genres")
     .then((res) => res.data.results);
 };
-const GenreList = () => {
+const GenreList = ({ onSelectGenre }: Props) => {
   const {
     data: genres,
     error,
@@ -28,27 +39,30 @@ const GenreList = () => {
     queryFn: fetchGenres,
   });
   if (error) return null;
-  if (isLoading) return <Spinner size={'lg'}/>
+  if (isLoading) return <Spinner size={"lg"} />;
+
   return (
-  
-      
-      <List.Root listStyle={"none"}>
-        {genres?.map((genre) => (
-          <List.Item key={genre.id} paddingY={2}>
-            <HStack>
-              <Image
-                boxSize={"40px"}
-                borderRadius={8}
-                src={croppedImageUrl(genre.image_background)}
-              />
-              <Text fontWeight={"bold"} fontSize={20}>
-                {genre.name}
-              </Text>
-            </HStack>
-          </List.Item>
-        ))}
-      </List.Root>
-    
+    <List.Root listStyle={"none"}>
+      {genres?.map((genre) => (
+        <List.Item key={genre.id} paddingY={2}>
+          <HStack>
+            <Image
+              boxSize={"40px"}
+              borderRadius={8}
+              src={croppedImageUrl(genre.image_background)}
+            />
+            <Link
+              onClick={() => onSelectGenre(genre)}
+              textDecoration={"none"}
+              fontWeight={"bold"}
+              fontSize={20}
+            >
+              {genre.name}
+            </Link>
+          </HStack>
+        </List.Item>
+      ))}
+    </List.Root>
   );
 };
 
