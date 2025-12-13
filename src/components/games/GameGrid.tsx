@@ -6,9 +6,11 @@ import GameCard from "./GameCard";
 import Skeleton from "./Skeleton";
 import GameCardContainer from "./GameCardContainer";
 import { Genre } from "../genres/GenreList";
+import SortSelector from "./SortSelector";
 interface Props {
   selectedGenre: Genre | null;
   selectedPlatform: Platform | null;
+  selectedSortOrder: string;
 }
 export interface Platform {
   id: number;
@@ -27,25 +29,43 @@ interface FetchGamesResponse {
   count: number;
   results: Game[];
 }
-const fetchGames = (genreId: number | null, platformId: number | null) =>
+const fetchGames = (
+  genreId: number | null,
+  platformId: number | null,
+  sortOrder: string
+) =>
   apiClient
     .get<FetchGamesResponse>("/games", {
       params: {
         genres: genreId || undefined,
         parent_platforms: platformId || undefined,
+        ordering: sortOrder,
       },
     })
     .then((res) => res.data.results);
-const GameGrid = ({ selectedGenre, selectedPlatform }: Props) => {
+const GameGrid = ({
+  selectedGenre,
+  selectedPlatform,
+  selectedSortOrder,
+}: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6];
   const {
     data: games,
     error,
     isLoading,
   } = useQuery<Game[], Error>({
-    queryKey: ["games", selectedGenre?.id, selectedPlatform?.id],
+    queryKey: [
+      "games",
+      selectedGenre?.id,
+      selectedPlatform?.id,
+      selectedSortOrder,
+    ],
     queryFn: () =>
-      fetchGames(selectedGenre?.id || null, selectedPlatform?.id || null),
+      fetchGames(
+        selectedGenre?.id || null,
+        selectedPlatform?.id || null,
+        selectedSortOrder
+      ),
   });
 
   if (error) return <p className="danger">{error.message}</p>;

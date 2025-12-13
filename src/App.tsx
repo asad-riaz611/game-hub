@@ -11,6 +11,7 @@ const App = () => {
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
     null
   );
+  const [sortSelected, setSortSelected] = useState<string>("");
   return (
     <Grid
       templateAreas={{
@@ -36,14 +37,18 @@ const App = () => {
         />
       </GridItem>
       <GridItem area={"main"}>
-        <HStack gap={5} paddingLeft={7} >
+        <HStack gap={5} paddingLeft={7}>
           <PlatformMenu
             selectedPlatform={selectedPlatform}
             onSelectPlatform={(platform) => setSelectedPlatform(platform)}
           />
-          <SortSelector/>
+          <SortSelector
+            sortSelecter={sortSelected}
+            onSortSelector={(sort) => setSortSelected(sort)}
+          />
         </HStack>
         <GameGrid
+          selectedSortOrder={sortSelected}
           selectedGenre={selectedGenre}
           selectedPlatform={selectedPlatform}
         />
