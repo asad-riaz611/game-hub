@@ -3,6 +3,7 @@ import logo from "../../assets/react.svg";
 import { ColorModeButton, useColorMode } from "../ui/color-mode";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
+import ColorMode from "./ColorMode";
 interface Props {
   onSearch: (searchText: string) => void;
 }
@@ -21,9 +22,9 @@ const Navbar = ({ onSearch }: Props) => {
             fontWeight={"bold"}
             color={colorMode === "dark" ? "yellow" : "black"}
           >
-            {colorMode === "dark" ? "Light Mode" : "Dark Mode"}
+            {colorMode === "dark" ? "Dark Mode" : "Light Mode"}
           </Text>
-          <ColorModeButton color={colorMode === "dark" ? "yellow" : "black"} />
+          <ColorMode />
         </HStack>
       </HStack>
     </div>

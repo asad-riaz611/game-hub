@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import apiClient from "../../services/api-client";
+import staticGenres from "../../data/genres";
 import {
   Button,
   Heading,
@@ -28,7 +29,7 @@ interface FetchGenreResponse {
 }
 const fetchGenres = () => {
   return apiClient
-    .get<FetchGenreResponse>("/genres")
+    .get<FetchGenreResponse>("genres")
     .then((res) => res.data.results);
 };
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
@@ -39,13 +40,16 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   } = useQuery<Genre[], Error>({
     queryKey: ["genres"],
     queryFn: fetchGenres,
+    initialData: staticGenres,
   });
   if (error) return null;
   if (isLoading) return <Spinner size={"lg"} />;
 
   return (
     <>
-      <Heading marginBottom={3} fontSize={'2xl'}>Genres</Heading>
+      <Heading marginBottom={3} fontSize={"2xl"}>
+        Genres
+      </Heading>
       <List.Root listStyle={"none"}>
         {genres?.map((genre) => (
           <List.Item key={genre.id} paddingY={2}>

@@ -1,4 +1,4 @@
-import { Button, Menu, Portal } from "@chakra-ui/react";
+import { Button, Menu, Portal, MenuTrigger } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 interface Props {
   onSortSelector: (sort: string) => void;
@@ -20,12 +20,11 @@ const SortSelector = ({ onSortSelector, sortSelecter }: Props) => {
   return (
     <div>
       <Menu.Root>
-        <Menu.Trigger asChild>
+        <MenuTrigger asChild>
           <Button variant="outline" size="sm" padding={"20px"}>
             Order by: {currentSortOrder?.label || "Relevance"}
-            <BsChevronDown />
           </Button>
-        </Menu.Trigger>
+        </MenuTrigger>
         <Portal>
           <Menu.Positioner>
             <Menu.Content>

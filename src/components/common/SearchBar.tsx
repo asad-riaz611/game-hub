@@ -1,6 +1,6 @@
 import { Input, InputGroup } from "@chakra-ui/react";
 import React, { useRef } from "react";
-import { BsSearch } from "react-icons/bs";
+import { TbSearch } from "react-icons/tb";
 interface Props {
   onSearch: (searchText: string) => void;
 }
@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }: Props) => {
         if (ref.current) onSearch(ref.current.value);
       }}
     >
-      <InputGroup startElement={<BsSearch />} paddingX={3}>
+      <InputGroup  paddingX={3}>
         <Input
           ref={ref}
           fontWeight={"bold"}

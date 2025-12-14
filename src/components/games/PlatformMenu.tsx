@@ -1,7 +1,6 @@
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { BsChevronBarDown, BsChevronDown } from "react-icons/bs";
+import { BsChevronDown } from "react-icons/bs";
 import apiClient from "../../services/api-client";
 import { Platform } from "./GameGrid";
 interface Props {
@@ -32,7 +31,7 @@ const PlatformMenu = ({ selectedPlatform, onSelectPlatform }: Props) => {
         <Menu.Trigger asChild>
           <Button variant="outline" size="sm" padding={"20px"}>
             {selectedPlatform ? selectedPlatform.name : "Platforms"}
-            <BsChevronDown />
+           
           </Button>
         </Menu.Trigger>
         <Portal>
