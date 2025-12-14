@@ -3,6 +3,7 @@ import React from "react";
 import apiClient from "../../services/api-client";
 import {
   Button,
+  Heading,
   HStack,
   Image,
   Link,
@@ -43,28 +44,32 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   if (isLoading) return <Spinner size={"lg"} />;
 
   return (
-    <List.Root listStyle={"none"}>
-      {genres?.map((genre) => (
-        <List.Item key={genre.id} paddingY={2}>
-          <HStack>
-            <Image
-              boxSize={"40px"}
-              borderRadius={8}
-              src={croppedImageUrl(genre.image_background)}
-            />
-            <Link
-              color={selectedGenre?.id === genre.id ? "yellow" : ""}
-              onClick={() => onSelectGenre(genre)}
-              textDecoration={"none"}
-              fontWeight={"bold"}
-              fontSize={20}
-            >
-              {genre.name}
-            </Link>
-          </HStack>
-        </List.Item>
-      ))}
-    </List.Root>
+    <>
+      <Heading marginBottom={3} fontSize={'2xl'}>Genres</Heading>
+      <List.Root listStyle={"none"}>
+        {genres?.map((genre) => (
+          <List.Item key={genre.id} paddingY={2}>
+            <HStack>
+              <Image
+                objectFit={"cover"}
+                boxSize={"40px"}
+                borderRadius={8}
+                src={croppedImageUrl(genre.image_background)}
+              />
+              <Link
+                color={selectedGenre?.id === genre.id ? "yellow" : ""}
+                onClick={() => onSelectGenre(genre)}
+                textDecoration={"none"}
+                fontWeight={"bold"}
+                fontSize={20}
+              >
+                {genre.name}
+              </Link>
+            </HStack>
+          </List.Item>
+        ))}
+      </List.Root>
+    </>
   );
 };
 
