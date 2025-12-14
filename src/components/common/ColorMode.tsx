@@ -4,7 +4,7 @@ const ColorMode = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box as={"button"} onClick={toggleColorMode}>
-      <Switch.Root defaultChecked>
+      <Switch.Root >
         <Switch.HiddenInput />
         <Switch.Control />
         <Switch.Label></Switch.Label>

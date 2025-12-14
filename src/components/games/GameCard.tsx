@@ -1,5 +1,6 @@
 import React from "react";
 import { Game } from "./GameGrid";
+import ElectricBorder from "./ElectricBorder";
 import {
   Card,
   CardBody,
@@ -17,18 +18,28 @@ interface Props {
 }
 const GameCard = ({ game }: Props) => {
   return (
-    <Card.Root>
-      <Image src={croppedImageUrl(game.background_image)} />
-      <Card.Body>
-        <HStack justifyContent={"space-between"} marginBottom={2}>
-          <PlatformIconList
-            platforms={game.parent_platforms.map((p) => p.platform)}
-          />
-          <CriticScore score={game.metacritic} />
-        </HStack>
-        <Card.Title fontSize={"2xl"}>{game.name}</Card.Title>
-      </Card.Body>
-    </Card.Root>
+    <>
+      <ElectricBorder
+        color="#7df9ff"
+        speed={1}
+        chaos={0.5}
+        thickness={2}
+        style={{ borderRadius: 16 }}
+      >
+        <Card.Root>
+          <Image src={croppedImageUrl(game.background_image)} />
+          <Card.Body>
+            <HStack justifyContent={"space-between"} marginBottom={2}>
+              <PlatformIconList
+                platforms={game.parent_platforms.map((p) => p.platform)}
+              />
+              <CriticScore score={game.metacritic} />
+            </HStack>
+            <Card.Title fontSize={"2xl"}>{game.name}</Card.Title>
+          </Card.Body>
+        </Card.Root>
+      </ElectricBorder>
+    </>
   );
 };
 

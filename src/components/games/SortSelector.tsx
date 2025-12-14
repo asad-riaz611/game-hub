@@ -21,7 +21,12 @@ const SortSelector = ({ onSortSelector, sortSelecter }: Props) => {
     <div>
       <Menu.Root>
         <MenuTrigger asChild>
-          <Button variant="outline" size="sm" padding={"20px"}>
+          <Button
+            style={{ border: "solid" }}
+            variant="outline"
+            size="sm"
+            padding={"20px"}
+          >
             Order by: {currentSortOrder?.label || "Relevance"}
           </Button>
         </MenuTrigger>

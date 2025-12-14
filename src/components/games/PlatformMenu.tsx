@@ -1,4 +1,12 @@
-import { Button, Menu, Portal } from "@chakra-ui/react";
+import {
+  Button,
+  Menu,
+  Portal,
+  MenuPositioner,
+  MenuItem,
+  MenuContent,
+  MenuTrigger,
+} from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { BsChevronDown } from "react-icons/bs";
 import apiClient from "../../services/api-client";
@@ -28,26 +36,25 @@ const PlatformMenu = ({ selectedPlatform, onSelectPlatform }: Props) => {
   return (
     <div>
       <Menu.Root>
-        <Menu.Trigger asChild>
-          <Button variant="outline" size="sm" padding={"20px"}>
+        <MenuTrigger asChild>
+          <Button style={{border: 'solid' }} variant="outline" size="sm" padding={"20px"}>
             {selectedPlatform ? selectedPlatform.name : "Platforms"}
-           
           </Button>
-        </Menu.Trigger>
+        </MenuTrigger>
         <Portal>
-          <Menu.Positioner>
-            <Menu.Content>
+          <MenuPositioner>
+            <MenuContent>
               {platforms?.map((platform) => (
-                <Menu.Item
+                <MenuItem
                   onClick={() => onSelectPlatform(platform)}
                   value={platform.name}
                   key={platform.id}
                 >
                   {platform.name}
-                </Menu.Item>
+                </MenuItem>
               ))}
-            </Menu.Content>
-          </Menu.Positioner>
+            </MenuContent>
+          </MenuPositioner>
         </Portal>
       </Menu.Root>
     </div>
