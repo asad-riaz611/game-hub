@@ -11,6 +11,7 @@ interface Props {
   selectedGenre: Genre | null;
   selectedPlatform: Platform | null;
   selectedSortOrder: string;
+  searchText: string;
 }
 export interface Platform {
   id: number;
@@ -32,14 +33,16 @@ interface FetchGamesResponse {
 const fetchGames = (
   genreId: number | null,
   platformId: number | null,
-  sortOrder: string
+  sortOrder: string,
+  searchText: string
 ) =>
   apiClient
     .get<FetchGamesResponse>("/games", {
       params: {
         genres: genreId || undefined,
         parent_platforms: platformId || undefined,
-        ordering: sortOrder,
+        ordering: sortOrder || undefined,
+        search: searchText || undefined,
       },
     })
     .then((res) => res.data.results);
@@ -47,6 +50,7 @@ const GameGrid = ({
   selectedGenre,
   selectedPlatform,
   selectedSortOrder,
+  searchText,
 }: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6];
   const {
@@ -59,12 +63,14 @@ const GameGrid = ({
       selectedGenre?.id,
       selectedPlatform?.id,
       selectedSortOrder,
+      searchText,
     ],
     queryFn: () =>
       fetchGames(
         selectedGenre?.id || null,
         selectedPlatform?.id || null,
-        selectedSortOrder
+        selectedSortOrder,
+        searchText
       ),
   });
 

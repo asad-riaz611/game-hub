@@ -2,19 +2,28 @@ import { HStack, Image, Text } from "@chakra-ui/react";
 import logo from "../../assets/react.svg";
 import { ColorModeButton, useColorMode } from "../ui/color-mode";
 import { useState } from "react";
-const Navbar = () => {
+import SearchBar from "./SearchBar";
+interface Props {
+  onSearch: (searchText: string) => void;
+}
+const Navbar = ({ onSearch }: Props) => {
   const [darkMode, setDarkMode] = useState(false);
   const { colorMode } = useColorMode();
 
   return (
     <div>
-      <HStack justify={"space-between"}>
+      <HStack>
         <Image src={logo}></Image>
+        <SearchBar onSearch={onSearch} />
         <HStack>
-          <Text fontWeight={"bold"} color={colorMode === 'dark'? 'yellow': 'black'}>
+          <Text
+            textWrap={"nowrap"}
+            fontWeight={"bold"}
+            color={colorMode === "dark" ? "yellow" : "black"}
+          >
             {colorMode === "dark" ? "Light Mode" : "Dark Mode"}
           </Text>
-          <ColorModeButton  color={colorMode === 'dark'? 'yellow': 'black'} />
+          <ColorModeButton color={colorMode === "dark" ? "yellow" : "black"} />
         </HStack>
       </HStack>
     </div>
